@@ -1,0 +1,68 @@
+import java.io.*;
+import java.util.*;
+import java.text.*;
+import java.math.*;
+import java.util.regex.*;
+class BankAccount{
+    private String name;
+    private int accountNo;
+    private int balance;
+    public int accountNoTracker;
+    public BankAccount(String name,int balance){
+        this.name=name;
+        this.balance=0;
+        accountNoTracker++;
+    }
+    public String getName(){
+        return name;
+    }
+    public int getBalance(){
+        return balance;
+    }
+    public int getAccountNo(){
+        return accountNo;
+    }
+    public void setAccountNo(int dd){
+        accountNo=dd;
+    }
+    public void display(){
+        System.out.println(accountNo+" "+name+" "+balance);
+    }
+    public void deposit(int i){
+        balance=balance+i;
+    }
+    public void withdraw(int j){
+        if (balance<j){
+            System.out.println("Negative Balance Transaction Cancelled");
+        }
+        else{
+            balance=balance-j;
+        }
+    }
+}
+
+public class Solution {
+
+    public static void main(String[] args) {
+       Scanner in = new Scanner(System.in);
+        int a = in.nextInt();
+        in.nextLine();
+        String str=in.next();
+        int b=in.nextInt();
+        in.nextLine();
+        BankAccount d = new BankAccount(str,a);
+        d.setAccountNo(a);
+        for (int i=0;i<b;i++){
+            String[] arr =in.nextLine().split(" ");
+            if (arr[0].equals("Withdraw")){
+                d.withdraw(Integer.parseInt(arr[1]));
+            }
+            else if (arr[0].equals("Deposit")){
+                d.deposit(Integer.parseInt(arr[1]));
+            }
+            else if (arr[0].equals("Display")){
+                d.display();
+            }
+        }
+    }
+}
