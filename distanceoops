@@ -1,0 +1,57 @@
+import java.io.*;
+import java.util.*;
+import java.text.*;
+import java.math.*;
+import java.util.regex.*;
+
+abstract class Distance {
+    protected int feet;
+    protected float inches;
+    
+    abstract public void setFeetAndInches(int feet, float inches);
+    abstract public int getFeet();
+    abstract public float getInches();
+    abstract String getDistanceComparison(Distance dist2);
+}
+class DistanceImplementation extends Distance{
+    public void setFeetAndInches(int feet, float inches){
+        this.feet=feet;
+        this.inches=inches;
+    }
+    public int getFeet(){
+        return feet;
+    }
+    public float getInches(){
+        return inches;
+    }
+    public String getDistanceComparison(Distance dist2){
+        if (feet*12+inches-(dist2.getFeet()*12+getInches())==0){
+            return "Both distances are equal.";
+        }
+        else if (feet*12+inches-(dist2.getFeet()*12+getInches())>0){
+            return "First distance is greater.";
+        }
+        else{
+            return "Second distance is greater.";
+        }
+    }
+}
+public class DistanceCalculator {
+    private static final Scanner scan = new Scanner(System.in);
+    
+    public static void main(String[] args) {
+        Distance dist1 = new DistanceImplementation();
+        Distance dist2 = new DistanceImplementation();
+        
+        int feet1 = scan.nextInt();
+        float inches1 = scan.nextFloat();
+        
+        int feet2 = scan.nextInt();
+        float inches2 = scan.nextFloat();
+        
+        dist1.setFeetAndInches(feet1, inches1);
+        dist2.setFeetAndInches(feet2, inches2);
+        
+        System.out.println(dist1.getDistanceComparison(dist2));
+    }
+}
